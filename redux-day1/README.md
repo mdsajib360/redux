@@ -1,6 +1,6 @@
 # Redux 
 - ##### A JS library for predictable and maintainable global state management
-- 
+
 
 To learn Redux quickly and understand its basic concepts, focus on these steps:
 
@@ -256,3 +256,78 @@ src/
 
 Would you like a sample project with this structure?
 .
+
+
+---
+
+#### create a counter redux app : 
+
+- steps:
+   -  #### create a slice /features/counter/counterSlice.js
+   ```Javascript 
+   import { createSlice } from "@reduxjs/toolkit";
+
+    const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { value: 0 },
+    reducers: {
+        increment: (state) => { state.value += 1 },
+        decrement: (state) => {if(state.value !==0) state.value -= 1 }
+    }
+    })
+    // export increment & decrement function as actions
+    export const {increment, decrement} = counterSlice.actions
+    export default counterSlice.reducer;
+
+    ```
+    - combine reducers: app/rooReducer.js
+   
+   ```Javascript
+        import { combineReducers } from 'redux'
+        import counterReducer from '../features/counter/counterSlice'
+
+        const rootReducer = combineReducers({
+        counter: counterReducer,
+    
+        })
+
+        export default rootReducer
+   ```
+  - create a counter Component.jsx
+   ```Javascript 
+            // src/features/counter/CounterComponent.jsx
+    import React from 'react';
+    import { useSelector, useDispatch } from 'react-redux';
+    import { increment, decrement } from './counterSlice';
+    
+    const CounterComponent = () => {
+      const count = useSelector((state) => state.counter.value);
+      const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+    </div>
+  );
+};
+
+export default CounterComponent;
+
+   ```
+  -   configure the reducers in redux store :
+    
+    ```Javascript
+        import { configureStore } from '@reduxjs/toolkit';
+        import rootReducer from './rootReducer';
+
+
+        const store = configureStore({
+         reducer:rootReducer
+        })
+
+        export default store;  
+    ```
+   -  create counter component :-
+   
