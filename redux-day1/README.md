@@ -293,29 +293,29 @@ Would you like a sample project with this structure?
 
         export default rootReducer
    ```
-  - create a counter Component.jsx
-   ```Javascript 
+  - create a counter Component.jsx 
+    ```Javascript 
             // src/features/counter/CounterComponent.jsx
-    import React from 'react';
-    import { useSelector, useDispatch } from 'react-redux';
-    import { increment, decrement } from './counterSlice';
+        import React from 'react';
+        import { useSelector, useDispatch } from 'react-redux';
+        import { increment, decrement } from './counterSlice';
+
+        const CounterComponent = () => {
+          const count = useSelector((state) => state.counter.value);
+          const dispatch = useDispatch();
+
+          return (
+            <div>
+              <h2>Counter: {count}</h2>
+              <button onClick={() => dispatch(increment())}>+</button>
+              <button onClick={() => dispatch(decrement())}>-</button>
+            </div>
+          );
+        };
+
+        export default CounterComponent;
     
-    const CounterComponent = () => {
-      const count = useSelector((state) => state.counter.value);
-      const dispatch = useDispatch();
-
-  return (
-    <div>
-      <h2>Counter: {count}</h2>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-    </div>
-  );
-};
-
-export default CounterComponent;
-
-   ```
+    ```
   -   configure the reducers in redux store :
     
     ```Javascript
@@ -329,5 +329,5 @@ export default CounterComponent;
 
         export default store;  
     ```
-   -  create counter component :-
+  
    
