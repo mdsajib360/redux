@@ -255,3 +255,4 @@ src/
 4. **Scalability:** Adding new features is straightforward—just create a new folder in `features/`.
 
 Would you like a sample project with this structure?
+.
